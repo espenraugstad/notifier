@@ -10,7 +10,9 @@
     <h1>Receiver</h1>
     <div id="sound">Notification sound is off.</div>
     <div id="note"></div>
-    <audio id="noteSnd" src="./assets/note.wav" autoplay></audio>
+    <audio id="noteSnd" autoplay>
+        <source src="./assets/note.wav" type="audio/wav">
+    </audio>
     <button id="btn1">Click to activate audio notification</button>
 
     <script>
