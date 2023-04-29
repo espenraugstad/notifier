@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver</title>
+</head>
+<body>
+    <h1>Receiver</h1>
+    <div id="sound">Notification sound is off.</div>
+    <div id="note"></div>
+    <audio id="noteSnd" src="./assets/note.wav" autoplay></audio>
+    <button id="btn1">Click to activate audio notification</button>
+
+    <script>
+        const sound = document.getElementById('sound');
+        const note = document.getElementById('note');
+        const noteSnd = document.getElementById('noteSnd');
+        const btn1 = document.getElementById('btn1');
+
+        btn1.addEventListener("click", ()=>{
+            sound.innerHTML = "Notification sound is on.";
+        })
+
+        const source = new EventSource("/ping");
+
+        source.addEventListener("open", ()=>{
+            console.log("Connceted");
+            note.innerHTML = "Listening for message";
+        });
+
+        source.addEventListener("message", (e)=>{
+            console.log("Received message?");
+            console.log(e.data);
+            note.innerHTML = e.data;
+            noteSnd.play();
+        });
+    </script>
+</body>
+</html>

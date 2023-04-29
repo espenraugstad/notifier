@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sender</title>
+  </head>
+
+  <style>
+    *{
+        box-sizing: border-box;
+    }
+    body{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: sans-serif;
+    }
+
+    button{
+        width: 50vw;
+        height: 50vw;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .n{
+        font-size: 1.5rem;
+    }
+  </style>
+
+  <body>
+    <h1>Dryer notifier</h1>
+    <p>Click the button to let me know the dryer is finished!</p>
+    <div id="notification"><button id="btn1">Come get your clothes!</button></div>
+    
+    <script>
+      const notification = document.getElementById('notification');
+      const btn1 = document.getElementById("btn1");
+
+      btn1.addEventListener("click", async () => {
+        console.log("Pingin");
+        let res = await fetch("/pinger", {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "Ping" }),
+        });
+        if(res.status === 200){
+            notification.innerHTML = "<p class='n'>Thank you. I'll be there shortly.<p>"
+        }
+      });
+    </script>
+  </body>
+</html>
